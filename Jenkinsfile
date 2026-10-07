@@ -49,28 +49,24 @@ pipeline {
             }
         }
 
-	stage('creating secrets) {
-	   steps {
-		withCredentials([
- 		   usernamePassword(
-        	   credentialsId: 'node-db',
-                   usernameVariable: 'DB_USER',
-        	   passwordVariable: 'DB_PASS'
-    		)
-		]) {
-    			sh '''
-        		kubectl create secret generic node-secret \
-          		--from-literal=DB_USER="$DB_USER" \
-          		--from-literal=DB_PASS="$DB_PASS" \
-          		--dry-run=client -o yaml | kubectl apply -f -
-    			'''	
-		}
-			
-	  }
-       }
-    
-
-
+        stage('Creating Secrets') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'node-db',
+                        usernameVariable: 'DB_USER',
+                        passwordVariable: 'DB_PASS'
+                    )
+                ]) {
+                    sh '''
+                        kubectl create secret generic node-secret \
+                            --from-literal=DB_USER="$DB_USER" \
+                            --from-literal=DB_PASS="$DB_PASS" \
+                            --dry-run=client -o yaml | kubectl apply -f -
+                    '''
+                }
+            }
+        }
 
         stage('Deploy Kubernetes') {
             steps {
@@ -109,3 +105,4 @@ pipeline {
         }
     }
 }
+
