@@ -80,7 +80,7 @@ pipeline {
             steps {
                 sh '''
                     kubectl set image deployment/node-deployment \
-                        static=${IMAGE}:${TAG}
+                        node=${IMAGE}:${TAG}
                 '''
             }
         }
