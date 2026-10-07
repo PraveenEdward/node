@@ -79,7 +79,7 @@ pipeline {
         stage('Update Image') {
             steps {
                 sh '''
-                    kubectl set image deployment/static-deployment \
+                    kubectl set image deployment/node-deployment \
                         static=${IMAGE}:${TAG}
                 '''
             }
@@ -88,7 +88,7 @@ pipeline {
         stage('Rollout Status') {
             steps {
                 sh '''
-                    kubectl rollout status deployment/static-deployment \
+                    kubectl rollout status deployment/node-deployment \
                         --timeout=5m
                 '''
             }
