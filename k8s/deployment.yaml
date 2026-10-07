@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-label
+  template:
+    metadata:
+      labels:
+        app: node-label
+    spec:
+      containers:
+        - name: node
+          image: praveenedward/node:v1
+          envFrom:
+            - configMapRef:
+                name: node-config
+            - secretRef:
+                name: node-secret
+          ports:
+            - containerPort: 3000
