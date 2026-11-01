@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: node-config
 data:
-  DB_HOST: "172.31.2.107"
+  DB_HOST: "172.31.28.180"
   DB_NAME: "node"
